@@ -1,10 +1,16 @@
+<?php
+     include"connection.php";
+    $sql = "SELECT * FROM chest WHERE Id =2";
+    $result = mysqli_query($con,$sql);
+     ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zoezi</title>
-    <link rel="stylesheet" href="zoezi.css">
+    <link rel="stylesheet" href="css.css">
 </head>
 <body>
    
@@ -16,13 +22,13 @@
               </div>
               <nav>
                <ul id="MenuItems">
-                   <li><a href="plans.html">Plan</a></li>
-                   <li><a href="athlete.php">Athlete</a></li>
-                   <li><a href="workout.php">Workouts</a></li>
+                   <li><a href="plans.php">Plan</a></li>
+                   <li><a href="">Workout</a></li>
                    <li><a href="nutrition.html">Nutrition</a></li>
-                   <li><a href="classes.php">Classes</a></li>
+                   <li><a href="">Activity</a></li>
+                   <li><a href="">Classes</a></li>
                    <li><a href="profile.php">Profile</a></li>
-                   <li><a href="logout.php">logout</a></li>
+                   <li><a href="login_form.php">Account</a></li>
                 </ul>
               </nav>  
           </div>          
@@ -30,35 +36,38 @@
        </div>
     
 
-       <br><br><br><br><br><br> <br><br>
- <div class="small-container single-product">
-    <center>
-        <h1>Stopwatch</h>
-        <div id="mainstopwatch">
-            <div class="mainTime">
-                <span id="mainminute">00</span>
-                <span id="mainsecond">00</span>
-                <span id="milliseconds">00</span>
-            </div>
+       <br><br><br><br><br><br> 
+ <!--exercise-->   
+   <div class="small-container single-product">
+    <div class="row">
+        <div class="col-2">
+            <img src="images/workouts/chest/cable_cross1.png" width="100%" id="ProductImg"> 
+            <div class="small-img-row">
+               <div class="small-img-col">
+                   <img src="images/workouts/chest/cable_cross1.png" class="small-img" width="100%">
+               </div>
+               <div class="small-img-col">
+                   <img src="images/workouts/chest/cable_cross2.png" class="small-img" width="100%">
+               </div>
+            </div>            
         </div>
+        <div class="col-2">
+            <h1>Instructions</h1>
+            <ol>
+            <?php
+                          while ($row = mysqli_fetch_assoc($result))
+                          {
+                            echo 
+                            "<a href=bench_press_barbell.php?ID=".$row['Instruction'].">
+                              ".$row['Instruction'].'';
+                          }
 
-
-<br> <!--creating stopwatch buttons-->
-        <button  id="start" onclick="start();"> <img src="images/icons/play.png" width="20" height="20"></button>
-        <button id="stop" onclick="stop();"><img src="images/icons/stop.png" width="20" height="20"></button>
-        <button id="reset" onclick="reset();"><img src="images/icons/reset.png" width="20" height="20"></button>
-    </center>
+                        ?></ol>
+           
+            
+        </div>
+    </div>
 </div>
-
-
-    <div class="small-container single-product">
-   <a href="anatomy.php" class="btn">Gym</a>
-    </div>
-    <div class="small-container single-product">
-   <a href="home_anatomy.php" class="btn">Home</a>
-    </div>
-
-
 <br><br><br><br><br><br> <br><br><br><br><br><br>
     
 <!--Footer--> 
@@ -110,41 +119,34 @@
                     </div>
     </div>    
 </div>
-<script type="text/javascript">
-    let [milliseconds,second,minute,] = [0,0,0];
-let timerRef = document.querySelector('.mainTime');
-let int = null;
-document.getElementById('start').addEventListener('click', ()=>{if(int!==null){
-clearInterval(int);
-}
-int = setInterval(mainTime,10);
-});
-document.getElementById('stop').addEventListener('click', ()=>{
-clearInterval(int);
-});
-document.getElementById('reset').addEventListener('click', ()=>{clearInterval(int);
-[milliseconds,seconds,minutes,hours] = [0,0,0];
-timerRef.innerHTML = '00 : 00 : 00';
-});
-function mainTime(){
-    milliseconds+=10;
-    if(milliseconds == 1000){
-        milliseconds = 0;
-        second++;
-    if(second == 60){
-        second = 0;
-        minute++;
-if(minute == 60){
-minute = 0;
-}
-}
-}
-let m = minute < 10 ? "0" + minute : minute;
-let s = second < 10 ? "0" + second : second;
-let ms = milliseconds < 10 ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds;
-timerRef.innerHTML = ` ${m} : ${s} : ${ms}`;
-}
-
+<script> 
+    
+//phone types   
+    var ProductImg = document.getElementById("ProductImg");
+    
+    var SmallImg = document.getElementsByClassName("small-img");
+       
+ 
+        SmallImg[0].onclick = function()
+        {
+            ProductImg.src = SmallImg[0].src;
+        }
+        SmallImg[1].onclick = function()
+        {
+            ProductImg.src = SmallImg[1].src;
+        
+        }
+        SmallImg[2].onclick = function()
+        {
+            ProductImg.src = SmallImg[2].src;
+        
+        }
+        SmallImg[3].onclick = function()
+        {
+            ProductImg.src = SmallImg[3].src;
+        
+        }
+    
 </script>
 </body>
 </html>

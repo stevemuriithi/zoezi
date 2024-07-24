@@ -1,5 +1,11 @@
+<?php
+     include "connection.php";
+    $sql = "SELECT * FROM exercises WHERE muscle='chest' AND type='h' ";
+    $result = mysqli_query($con,$sql);
+     ?>
+     
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,35 +36,33 @@
        </div>
     
 
-       <br><br><br><br><br><br> <br><br>
- <div class="small-container single-product">
-    <center>
-        <h1>Stopwatch</h>
-        <div id="mainstopwatch">
-            <div class="mainTime">
-                <span id="mainminute">00</span>
-                <span id="mainsecond">00</span>
-                <span id="milliseconds">00</span>
-            </div>
-        </div>
+       <br><br><br><br><br><br> <br><br><br><br><br><br>
 
+    <div class="small-container">
+   <h2 class="title">CHEST HOME WORKOUT</h2>
 
-<br> <!--creating stopwatch buttons-->
-        <button  id="start" onclick="start();"> <img src="images/icons/play.png" width="20" height="20"></button>
-        <button id="stop" onclick="stop();"><img src="images/icons/stop.png" width="20" height="20"></button>
-        <button id="reset" onclick="reset();"><img src="images/icons/reset.png" width="20" height="20"></button>
-    </center>
+             <div class="row">
+                <div class="col-2">
+              <div >        
+                    <?php
+                          while ($row = mysqli_fetch_assoc($result))
+                          {
+                            if ($row["Id"] == 1) {
+                            echo 
+                            "<a href=shoulder_arnold.php?ID=".$row['Id'].">
+                            <img src='https://udon.ads.ntu.ac.uk/web/Misc2022/N0891597/fyp/images/workouts/chest/home/".$row['Image']."' height=300px width=300px>  ".$row['Name'].'';
+                          }
+                          else 
+                            echo 
+                            "<a href=cable_crossover.php?ID=".$row['Id'].">
+                            <img src='https://udon.ads.ntu.ac.uk/web/Misc2022/N0891597/fyp/images/workouts/chest/home/".$row['Image']."' height=300px width=300px>  ".$row['Name'].'';
+                          }
+                      
+                        ?>
+                      </div> 
+           </div>
 </div>
-
-
-    <div class="small-container single-product">
-   <a href="anatomy.php" class="btn">Gym</a>
     </div>
-    <div class="small-container single-product">
-   <a href="home_anatomy.php" class="btn">Home</a>
-    </div>
-
-
 <br><br><br><br><br><br> <br><br><br><br><br><br>
     
 <!--Footer--> 
@@ -68,7 +72,7 @@
             <div class="footer-col1">
                
                 <address>
-                        <h3>JOKA</h3>
+                        <h3>ZOEZI</h3>
                         London, United Kingdom <br>
                         www.joka.com<br>
                         phone: +44 123 456 7890
@@ -95,10 +99,10 @@
             <div class="footer-col4">
                <h3>Follow Us</h3>
                 <ul>
-                    <li><a href="#" class="footer-link">Order status</a></li>
-                    <li><a href="#" class="footer-link">Shipping and Delivery</a></li>
-                    <li><a href="#" class="footer-link">Returns</a></li>
-                    <li><a href="#" class="footer-link">Payment options</a></li>
+                    <li><a href="#" class="footer-link">LinkedIn</a></li>
+                    <li><a href="#" class="footer-link">Instagram</a></li>
+                    <li><a href="#" class="footer-link">Facebook</a></li>
+                    <li><a href="#" class="footer-link">Twitter</a></li>
                 </ul>
             </div>
         </div>
@@ -110,42 +114,7 @@
                     </div>
     </div>    
 </div>
-<script type="text/javascript">
-    let [milliseconds,second,minute,] = [0,0,0];
-let timerRef = document.querySelector('.mainTime');
-let int = null;
-document.getElementById('start').addEventListener('click', ()=>{if(int!==null){
-clearInterval(int);
-}
-int = setInterval(mainTime,10);
-});
-document.getElementById('stop').addEventListener('click', ()=>{
-clearInterval(int);
-});
-document.getElementById('reset').addEventListener('click', ()=>{clearInterval(int);
-[milliseconds,seconds,minutes,hours] = [0,0,0];
-timerRef.innerHTML = '00 : 00 : 00';
-});
-function mainTime(){
-    milliseconds+=10;
-    if(milliseconds == 1000){
-        milliseconds = 0;
-        second++;
-    if(second == 60){
-        second = 0;
-        minute++;
-if(minute == 60){
-minute = 0;
-}
-}
-}
-let m = minute < 10 ? "0" + minute : minute;
-let s = second < 10 ? "0" + second : second;
-let ms = milliseconds < 10 ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds;
-timerRef.innerHTML = ` ${m} : ${s} : ${ms}`;
-}
 
-</script>
 </body>
 </html>
 
